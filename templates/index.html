@@ -1,0 +1,57 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  <!--/************************************************
+    * Name        : Community
+    * Version     : 3.0
+    * GitHub      : https://github.com/kensdy
+    * Repository  : https://github.com/kensdy/Community-V3
+  **************************************************/-->
+</head>
+
+<style>
+
+    body {
+        font-weight: bold;
+    }
+    
+</style>
+    
+<body>
+    <div class="header">
+        <a href="{{ url_for('index') }}" style="text-decoration: none; color: black;">
+            <h1>Community</h1>
+        </a>
+    </div>
+    
+    <div class="posts-container">
+        <span style="width:49%; color: black; font-weight: bold;">Posts</span>
+        <span style="float:right;">
+            <a href="{{ url_for('create_post') }}">새 포스트 생성</a>
+        </span>
+        <br><div class="line"></div>
+        
+        <ul>
+            {% for post in posts %}
+                <li class="post">
+                    <a href="{{ url_for('post', post_id=post['id']) }}">
+                        {{ post['title'] }}
+                    </a>
+                    <span style="float:right; color: gray;">
+                        ({{ post['timewhen'] }})
+                    </span>
+                </li>
+
+            {% endfor %}
+        </ul>
+        <!-- <div class="create-post-link">
+            <a href="{{ url_for('create_post') }}">새 포스트 생성</a>
+        </div> -->
+    </div>
+</body>
+</html>

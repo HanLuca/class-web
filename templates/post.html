@@ -1,0 +1,50 @@
+<!-- templates/post.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post['title'] }}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  <!--/************************************************
+    * Name        : Community
+    * Version     : 3.0
+    * GitHub      : https://github.com/kensdy
+    * Repository  : https://github.com/kensdy/Community-V3
+  **************************************************/-->
+</head>
+<body>
+    <div class="header">
+        <a href="{{ url_for('index') }}" style="text-decoration: none;"><h1>Community</h1></a>
+    </div>
+    
+    <div class="post-container">
+        <h1 class="post-title">
+            <a href="{{ url_for('index') }}">
+                <span class="material-symbols-outlined">arrow_back</span></a> {{ post['title'] }}
+        </h1><br>
+        <p class="post-content">{{ post_content | safe }}</p>
+
+        <br><div class="line"></div>
+        <p style="font-weight: bold;">댓글 ( {{ post_ammount }} )</p>
+        
+        <div class="comments-section">
+            <div class="comment-container">
+                <form method="post" action="{{ url_for('add_comment', post_id=post['id']) }}">
+
+                    <input id="comment-content" name="comment_content" required class="textarea-field" placeholder="댓글을 작성 후 엔터" autocomplete="off">
+                </form>
+            </div>
+            
+            <ul>
+                {% for comment in post['comments'] %}
+                    <li class="post-comment">
+                        <strong>[UNKNOWN]</strong><br> {{ comment['content'] }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
